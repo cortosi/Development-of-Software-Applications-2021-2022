@@ -32,7 +32,7 @@ public class TaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateTaskAssigned(Task task) {
-
+        SummarySheet.setAssignment(task);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateTaskDetailed(Task task) {
-
+        SummarySheet.setDetails(task);
     }
 
     @Override

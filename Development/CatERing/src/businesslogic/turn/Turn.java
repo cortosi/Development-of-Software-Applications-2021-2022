@@ -43,4 +43,8 @@ public class Turn {
                 ", start: " + start +
                 ", end: " + end;
     }
+
+    public int getId() {
+        return id;
+    }
 }

@@ -8,6 +8,7 @@ import businesslogic.menu.Menu;
 import businesslogic.task.SummarySheet;
 import businesslogic.turn.Turn;
 import businesslogic.turn.WorkshiftBoard;
+import businesslogic.user.User;
 
 import java.util.List;
 
@@ -35,5 +36,16 @@ public class TestCatERing {
         List<Turn> turns = CatERing.getInstance().getTurnManager().getTurns();
 
         System.out.println(turns);
+
+        System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK)");
+        CatERing.getInstance().getTaskManager().assignTask(sheet.getTasks().get(0), turns.get(0), User.loadUserById(5));
+
+        System.out.println(sheet);
+
+        System.out.println("\n[TEST]: TASK INFO DEFINITION");
+        CatERing.getInstance().getTaskManager().setTaskDetails(sheet.getTasks().get(0), 90, 2);
+
+        System.out.println(sheet);
+        // TEST: End
     }
 }

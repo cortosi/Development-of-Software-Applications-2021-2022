@@ -64,6 +64,24 @@ public class SummarySheet {
         });
     }
 
+    public static void setAssignment(Task task) {
+        String update = "UPDATE tasks SET " +
+                "`id_turn` = " + task.getTurnAssigned().getId() + ", " +
+                "`id_cook` = " + task.getCookAssigned().getId() + "" +
+                " WHERE `id` = " + task.getId();
+        System.out.println(update);
+        PersistenceManager.executeUpdate(update);
+    }
+
+    public static void setDetails(Task task) {
+        String update = "UPDATE tasks SET " +
+                "`timeEstimate` = " + task.getTimeEstimate() + ", " +
+                "`quantity` = " + task.getQuantity() + "" +
+                " WHERE `id` = " + task.getId();
+        System.out.println(update);
+        PersistenceManager.executeUpdate(update);
+    }
+
     // INSTANCES METHODS
     public void initSheet() {
         Menu menuAassigned = this.serviceAssigned.getMenuAssigned();

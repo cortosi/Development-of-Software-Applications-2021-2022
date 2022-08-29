@@ -69,24 +69,44 @@ public class Task {
         this.setTimeEstimate(timeEstimate);
     }
 
-    public void setCookAssigned(User cookAssigned) {
-        this.cookAssigned = cookAssigned;
+    public int getId() {
+        return id;
+    }
+
+    public Turn getTurnAssigned() {
+        return turnAssigned;
     }
 
     public void setTurnAssigned(Turn turnAssigned) {
         this.turnAssigned = turnAssigned;
     }
 
+    public User getCookAssigned() {
+        return cookAssigned;
+    }
+
+    public void setCookAssigned(User cookAssigned) {
+        this.cookAssigned = cookAssigned;
+    }
+
+    public KitchenTask getKtAssigned() {
+        return ktAssigned;
+    }
+
+    public int getTimeEstimate() {
+        return timeEstimate;
+    }
+
     public void setTimeEstimate(int timeEstimate) {
         this.timeEstimate = timeEstimate;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public int getId() {
-        return id;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
