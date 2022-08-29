@@ -5,10 +5,16 @@ import businesslogic.menu.Menu;
 import businesslogic.recipe.KitchenTask;
 import businesslogic.recipe.Recipe;
 import businesslogic.user.User;
+import persistence.BatchUpdateHandler;
+import persistence.PersistenceManager;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SummarySheet {
+    private int id;
     private User creator;
     private ArrayList<Task> tasks;
     private Service serviceAssigned;
@@ -75,5 +81,39 @@ public class SummarySheet {
         return serviceAssigned;
     }
 
+    @Override
+    public String toString() {
+        return "SummarySheet{" +
+                "creator=" + creator +
+                ", tasks=" + tasks +
+                ", serviceAssigned=" + serviceAssigned +
+                '}';
+    }
 
+    // PERSISTENCE METHODS
+    public static void saveSheet(SummarySheet sheet) {
+        String sheetInsert = "INSERT INTO catering.summarysheets (id_chef, id_service) VALUES (?, ?);";
+        int[] result = PersistenceManager.executeBatchUpdate(sheetInsert, 1, new BatchUpdateHandler() {
+            @Override
+            public void handleBatchItem(PreparedStatement ps, int batchCount) throws SQLException {
+                ps.setInt(1, sheet.creator.getId());
+                ps.setInt(2, sheet.serviceAssigned.getId());
+            }
+
+            @Override
+            public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
+                if (count == 0) {
+                    sheet.id = rs.getInt(1);
+                }
+            }
+        });
+        if (result[0] > 0) {
+            // SAVING ALL SHEET'S TASKS TOO
+            Task.saveAllNewTasks(sheet, sheet.tasks);
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
 }

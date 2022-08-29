@@ -536,4 +536,8 @@ public class Menu {
         this.sections.addAll(updatedList);
     }
 
+    public static Menu getMenuById(int menu_id) {
+        return loadedMenus.get(menu_id);
+    }
+
 }

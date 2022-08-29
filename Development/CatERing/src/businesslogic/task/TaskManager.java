@@ -8,22 +8,27 @@ import businesslogic.recipe.KitchenTask;
 import businesslogic.turn.Turn;
 import businesslogic.turn.WorkshiftBoard;
 import businesslogic.user.User;
+import persistence.MenuPersistence;
+import persistence.TaskPersistence;
 
 import java.util.ArrayList;
 
 public class TaskManager {
 
     private SummarySheet currentSheet;
-    private ArrayList<TaskEventReceiver> eventReceivers;
+    private ArrayList<TaskEventReceiver> eventReceivers = new ArrayList<>();
 
-    public void createSheet(Service ser) throws UseCaseLogicException {
+    public SummarySheet createSheet(Service ser) throws UseCaseLogicException {
         User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
         if (!currentUser.isChef()
                 || ser.getMenuAssigned() == null)
             throw new UseCaseLogicException();
 
-        this.currentSheet = new SummarySheet(ser, currentUser);
+        SummarySheet new_sheet = new SummarySheet(ser, currentUser);
+        this.setCurrentSheet(new_sheet);
         notifySheetCreated(this.currentSheet);
+
+        return new_sheet;
     }
 
     public void resetSheet(SummarySheet sheet) throws UseCaseLogicException, TaskException {
@@ -253,4 +258,7 @@ public class TaskManager {
     }
 
 
+    public void addEventReceiver(TaskEventReceiver er) {
+        this.eventReceivers.add(er);
+    }
 }

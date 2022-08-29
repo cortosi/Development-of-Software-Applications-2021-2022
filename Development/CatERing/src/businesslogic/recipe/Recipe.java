@@ -13,10 +13,8 @@ public class Recipe extends KitchenTask {
 
     // Instances variables
     private static Map<Integer, Recipe> all = new HashMap<>();
-
     private int id;
     private String name;
-
     private int quantity;
 
     // Instance Methods
@@ -87,6 +85,4 @@ public class Recipe extends KitchenTask {
         });
         return rec;
     }
-
-
 }
