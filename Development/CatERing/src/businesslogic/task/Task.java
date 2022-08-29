@@ -1,5 +1,6 @@
 package businesslogic.task;
 
+import businesslogic.menu.Menu;
 import businesslogic.recipe.KitchenTask;
 import businesslogic.turn.Turn;
 import businesslogic.user.User;
@@ -25,6 +26,31 @@ public class Task {
         this.ktAssigned = tkAssigned;
     }
 
+    // PERSISTENCE METHODS
+    public static void saveAllNewTasks(SummarySheet sheet, Menu m) {
+        String sheetInsert = "INSERT INTO catering.tasks (id_sheet, id_recipe, position) VALUES (?, ?, ?);";
+        int[] result = PersistenceManager.executeBatchUpdate(sheetInsert, m.getAllRecipes().size(), new BatchUpdateHandler() {
+            @Override
+            public void handleBatchItem(PreparedStatement ps, int batchCount) throws SQLException {
+                ps.setInt(1, sheet.getId());
+                ps.setInt(2, m.getAllRecipes().get(batchCount).getId());
+                ps.setInt(3, batchCount);
+            }
+
+            @Override
+            public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
+                sheet.getTasks().get(count).id = rs.getInt(1);
+            }
+        });
+    }
+
+    public static void saveNewTask(int sheet_id, Task task, int p_index) {
+        String taskInsert = "INSERT INTO catering.SheetsTasks (sheetId, procedureId, position) " +
+                "VALUES (" + sheet_id + ", " + task.ktAssigned.getId() + ", " + p_index + ");";
+        PersistenceManager.executeUpdate(taskInsert);
+//        task.id = PersistenceManager.getLastId();
+    }
+
     public void assignTask(Turn turn, User cook) {
         this.turnAssigned = turn;
         this.cookAssigned = cook;
@@ -34,6 +60,10 @@ public class Task {
         return completed;
     }
 
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public void setDetails(int timeEstimate, int quantity) {
         this.setQuantity(quantity);
         this.setTimeEstimate(timeEstimate);
@@ -41,10 +71,6 @@ public class Task {
 
     public void setCookAssigned(User cookAssigned) {
         this.cookAssigned = cookAssigned;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
     }
 
     public void setTurnAssigned(Turn turnAssigned) {
@@ -59,31 +85,19 @@ public class Task {
         this.quantity = quantity;
     }
 
-    // PERSISTENCE METHODS
-
-    public static void saveAllNewTasks(SummarySheet sheet, ArrayList<Task> tasks) {
-        String sheetInsert = "INSERT INTO catering.taskssheets (id_sheet, id_kitchentask, p_index) VALUES (?, ?, ?);";
-        int[] result = PersistenceManager.executeBatchUpdate(sheetInsert, 1, new BatchUpdateHandler() {
-            @Override
-            public void handleBatchItem(PreparedStatement ps, int batchCount) throws SQLException {
-                ps.setInt(1, sheet.getId());
-                ps.setInt(2, tasks.get(batchCount).ktAssigned.getId());
-                ps.setInt(3, batchCount);
-            }
-
-            @Override
-            public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
-                if (count == 0) {
-                    tasks.get(count).id = rs.getInt(1);
-                }
-            }
-        });
+    public int getId() {
+        return id;
     }
 
-    public static void saveNewTask(int sheet_id, Task task, int p_index) {
-        String taskInsert = "INSERT INTO catering.SheetsTasks (sheetId, procedureId, position) " +
-                "VALUES (" + sheet_id + ", " + task.ktAssigned.getId() + ", " + p_index + ");";
-        PersistenceManager.executeUpdate(taskInsert);
-//        task.id = PersistenceManager.getLastId();
+    @Override
+    public String toString() {
+        return "\tTask" +
+                "id: " + id +
+                ", ktAssigned: " + ktAssigned +
+                ", turnAssigned: " + turnAssigned +
+                ", cookAssigned: " + cookAssigned +
+                ", timeEstimate: " + timeEstimate +
+                ", completed: " + completed +
+                ", quantity: " + quantity;
     }
 }

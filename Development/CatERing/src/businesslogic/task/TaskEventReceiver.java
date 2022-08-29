@@ -1,11 +1,13 @@
 package businesslogic.task;
 
+import businesslogic.menu.Menu;
+
 public interface TaskEventReceiver {
-    void updateSheetCreated(SummarySheet sheet);
+    void updateSheetCreated(SummarySheet sheet, Menu m);
 
     void updateSheetReset(SummarySheet sheet);
 
-    void updateTaskAdded(Task n_task);
+    void updateTaskAdded(SummarySheet sheet, Task n_task);
 
     void updateTaskDeleted(Task task);
 

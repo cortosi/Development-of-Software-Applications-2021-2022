@@ -25,11 +25,26 @@ public class Service implements EventItemInfo {
         this.name = name;
     }
 
-    public String toString() {
-        return name + ": " + date + " (" + timeStart + "-" + timeEnd + "), " + participants + " pp.";
+    public Service() {
     }
 
-    // STATIC METHODS FOR PERSISTENCE
+    public static Service loadServiceById(int id) {
+        Service service = new Service();
+        String query = "SELECT * FROM services WHERE id=" + id;
+        PersistenceManager.executeQuery(query, new ResultHandler() {
+            @Override
+            public void handle(ResultSet rs) throws SQLException {
+                service.name = rs.getString("name");
+                service.id = rs.getInt("id");
+                service.date = rs.getDate("service_date");
+                service.timeStart = rs.getTime("time_start");
+                service.timeEnd = rs.getTime("time_end");
+                Menu.loadAllMenus();
+                service.menuAssigned = Menu.getMenuById(rs.getInt("id_menu"));
+            }
+        });
+        return service;
+    }
 
     public static ObservableList<Service> loadServiceInfoForEvent(int event_id) {
         ObservableList<Service> result = FXCollections.observableArrayList();
@@ -53,6 +68,12 @@ public class Service implements EventItemInfo {
             }
         });
         return result;
+    }
+
+    // STATIC METHODS FOR PERSISTENCE
+
+    public String toString() {
+        return name + ": " + date + " (" + timeStart + "-" + timeEnd + "), " + participants + " pp." + "menu assigned: " + menuAssigned;
     }
 
     public int getId() {

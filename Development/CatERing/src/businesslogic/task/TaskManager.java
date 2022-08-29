@@ -4,6 +4,7 @@ import businesslogic.CatERing;
 import businesslogic.general.TaskException;
 import businesslogic.general.UseCaseLogicException;
 import businesslogic.event.Service;
+import businesslogic.menu.Menu;
 import businesslogic.recipe.KitchenTask;
 import businesslogic.turn.Turn;
 import businesslogic.turn.WorkshiftBoard;
@@ -25,8 +26,10 @@ public class TaskManager {
             throw new UseCaseLogicException();
 
         SummarySheet new_sheet = new SummarySheet(ser, currentUser);
+        new_sheet.initSheet();
+
         this.setCurrentSheet(new_sheet);
-        notifySheetCreated(this.currentSheet);
+        notifySheetCreated(this.currentSheet, ser.getMenuAssigned());
 
         return new_sheet;
     }
@@ -49,7 +52,9 @@ public class TaskManager {
         if (currentSheet == null)
             throw new TaskException();
 
-        notifyTaskAdded(currentSheet.addTask(kt));
+        Task n_task = currentSheet.addTask(kt);
+
+        notifyTaskAdded(currentSheet, n_task);
     }
 
     public void deleteTask(Task task) throws TaskException {
@@ -174,9 +179,9 @@ public class TaskManager {
     }
 
     // EVENT SENDER METHODS
-    private void notifySheetCreated(SummarySheet sheet) {
+    private void notifySheetCreated(SummarySheet sheet, Menu m) {
         for (TaskEventReceiver er : eventReceivers) {
-            er.updateSheetCreated(sheet);
+            er.updateSheetCreated(sheet, m);
         }
     }
 
@@ -186,9 +191,9 @@ public class TaskManager {
         }
     }
 
-    private void notifyTaskAdded(Task task) {
+    private void notifyTaskAdded(SummarySheet sheet, Task task) {
         for (TaskEventReceiver er : eventReceivers) {
-            er.updateTaskAdded(task);
+            er.updateTaskAdded(sheet, task);
         }
     }
 
@@ -256,7 +261,6 @@ public class TaskManager {
         }
 
     }
-
 
     public void addEventReceiver(TaskEventReceiver er) {
         this.eventReceivers.add(er);

@@ -26,8 +26,45 @@ public class SummarySheet {
         tasks = new ArrayList<>();
     }
 
-    // Instances Methods
+    // PERSISTENCE METHODS
+    public static void saveSheet(SummarySheet sheet, Menu m) {
+        String sheetInsert = "INSERT INTO catering.summarysheets (id_chef, id_service) VALUES (?, ?);";
+        int[] result = PersistenceManager.executeBatchUpdate(sheetInsert, 1, new BatchUpdateHandler() {
+            @Override
+            public void handleBatchItem(PreparedStatement ps, int batchCount) throws SQLException {
+                ps.setInt(1, sheet.creator.getId());
+                ps.setInt(2, sheet.serviceAssigned.getId());
+            }
 
+            @Override
+            public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
+                if (count == 0) {
+                    sheet.id = rs.getInt(1);
+                }
+            }
+        });
+        if (result[0] > 0) {
+            // SAVING ALL SHEET'S TASKS TOO
+            Task.saveAllNewTasks(sheet, m);
+        }
+    }
+
+    public static void reorderTasks(SummarySheet sheet) {
+        String upd = "UPDATE catering.tasks SET position = ? WHERE id = ?";
+        PersistenceManager.executeBatchUpdate(upd, sheet.getTasks().size(), new BatchUpdateHandler() {
+            @Override
+            public void handleBatchItem(PreparedStatement ps, int batchCount) throws SQLException {
+                ps.setInt(1, batchCount);
+                ps.setInt(2, sheet.getTasks().get(batchCount).getId());
+            }
+
+            @Override
+            public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
+            }
+        });
+    }
+
+    // INSTANCES METHODS
     public void initSheet() {
         Menu menuAassigned = this.serviceAssigned.getMenuAssigned();
         ArrayList<Recipe> allRecipes = menuAassigned.getAllRecipes();
@@ -81,36 +118,17 @@ public class SummarySheet {
         return serviceAssigned;
     }
 
-    @Override
-    public String toString() {
-        return "SummarySheet{" +
-                "creator=" + creator +
-                ", tasks=" + tasks +
-                ", serviceAssigned=" + serviceAssigned +
-                '}';
+    public int getTaskIndex(Task task) {
+        return tasks.indexOf(task);
     }
 
-    // PERSISTENCE METHODS
-    public static void saveSheet(SummarySheet sheet) {
-        String sheetInsert = "INSERT INTO catering.summarysheets (id_chef, id_service) VALUES (?, ?);";
-        int[] result = PersistenceManager.executeBatchUpdate(sheetInsert, 1, new BatchUpdateHandler() {
-            @Override
-            public void handleBatchItem(PreparedStatement ps, int batchCount) throws SQLException {
-                ps.setInt(1, sheet.creator.getId());
-                ps.setInt(2, sheet.serviceAssigned.getId());
-            }
-
-            @Override
-            public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
-                if (count == 0) {
-                    sheet.id = rs.getInt(1);
-                }
-            }
-        });
-        if (result[0] > 0) {
-            // SAVING ALL SHEET'S TASKS TOO
-            Task.saveAllNewTasks(sheet, sheet.tasks);
-        }
+    @Override
+    public String toString() {
+        return "-SUMMARY SHEET-" +
+                "\n| Creator: " + creator +
+                "\n| Tasks: " + tasks +
+                "\n| serviceAssigned: " + serviceAssigned +
+                "\n--------------";
     }
 
     public int getId() {

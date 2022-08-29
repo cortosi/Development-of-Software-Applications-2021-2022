@@ -25,13 +25,13 @@ public class Menu {
     private boolean published;
     private boolean inUse;
 
-    private ObservableMap<String, Boolean> featuresMap;
+    private final ObservableMap<String, Boolean> featuresMap;
     private ObservableList<MenuItem> freeItems;
     private ObservableList<Section> sections;
 
     private User owner;
 
-    // Constructors
+    // CONSTRUCTORS
     private Menu() {
         this.featuresMap = FXCollections.observableHashMap();
     }
@@ -262,7 +262,7 @@ public class Menu {
     }
 
     public ArrayList<Recipe> getAllRecipes() {
-        ArrayList<MenuItem> allItems = new ArrayList<>();
+        ArrayList<MenuItem> allItems = new ArrayList<>(freeItems);
         ArrayList<Recipe> recipes = new ArrayList<>();
 
 
