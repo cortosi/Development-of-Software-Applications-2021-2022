@@ -14,6 +14,7 @@ public class TaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateSheetReset(SummarySheet sheet) {
+        Task.resetTasks(sheet);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class TaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateTaskDeleted(Task task) {
-
+        Task.deleteTask(task);
     }
 
     @Override
@@ -38,22 +39,22 @@ public class TaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateTaskCompleted(Task task) {
-
+        Task.setTaskCompleted(task);
     }
 
     @Override
     public void updateCookChanged(Task task) {
-
+        Task.setCookChange(task);
     }
 
     @Override
     public void updateCookRemoved(Task task) {
-
+        Task.setCookChange(task);
     }
 
     @Override
     public void updateTurnChanged(Task task) {
-
+        Task.setTurnChanged(task);
     }
 
     @Override
@@ -63,11 +64,11 @@ public class TaskPersistence implements TaskEventReceiver {
 
     @Override
     public void updateTaskTimeChanged(Task task) {
-
+        Task.taskTimeChanged(task);
     }
 
     @Override
     public void updateTaskQuantityChanged(Task task) {
-
+        Task.taskQuantityChanged(task);
     }
 }

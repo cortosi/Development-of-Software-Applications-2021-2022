@@ -40,8 +40,8 @@ public class TaskManager {
         if (!(sheet.isCreator(currentUser)))
             throw new TaskException();
 
-        setCurrentSheet(sheet);
         sheet.resetSheet();
+        setCurrentSheet(sheet);
 
         notifySheetReset(sheet);
     }
@@ -168,12 +168,14 @@ public class TaskManager {
         this.currentSheet = sheet;
     }
 
-    public void openSheet(SummarySheet sheet) throws UseCaseLogicException {
+    public SummarySheet openSheet(SummarySheet sheet) throws UseCaseLogicException {
         User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
         if (!currentUser.isChef())
             throw new UseCaseLogicException();
 
         this.setCurrentSheet(sheet);
+
+        return currentSheet;
     }
 
     // EVENT SENDER METHODS

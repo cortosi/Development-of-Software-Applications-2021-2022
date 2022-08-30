@@ -28,6 +28,7 @@ public class Turn {
                 t.id = rs.getInt("id");
                 t.date = rs.getDate("date");
                 t.start = rs.getTime("h_start");
+                t.end = rs.getTime("h_end");
                 t.place = rs.getString("place");
                 turns.put(t.id, t);
             }

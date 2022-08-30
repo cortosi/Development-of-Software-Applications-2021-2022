@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static java.sql.Types.NULL;
+
 public class Task {
     private int id;
 
@@ -44,10 +46,57 @@ public class Task {
     }
 
     public static void saveNewTask(int sheet_id, Task task, int p_index) {
-        String taskInsert = "INSERT INTO catering.SheetsTasks (sheetId, procedureId, position) " +
-                "VALUES (" + sheet_id + ", " + task.ktAssigned.getId() + ", " + p_index + ");";
+        String taskInsert = "INSERT INTO catering.tasks (id_sheet, position, id_recipe) " +
+                "VALUES (" + sheet_id + ", " + p_index + ", " + task.getKtAssigned().getId() + ");";
         PersistenceManager.executeUpdate(taskInsert);
-//        task.id = PersistenceManager.getLastId();
+        task.id = PersistenceManager.getLastId();
+    }
+
+    public static void resetTasks(SummarySheet sheet) {
+        // DELETING FIRST
+        deleteAllTasks(sheet);
+
+        // INSERTING
+        saveAllNewTasks(sheet, sheet.getServiceAssigned().getMenuAssigned());
+    }
+
+    public static void deleteTask(Task task) {
+        String taskDelete = "DELETE FROM tasks WHERE id = " + task.getId();
+        PersistenceManager.executeUpdate(taskDelete);
+    }
+
+    public static void deleteAllTasks(SummarySheet sheet) {
+        String deleteAll = "DELETE FROM tasks WHERE id_sheet = " + sheet.getId();
+        PersistenceManager.executeUpdate(deleteAll);
+    }
+
+    public static void setTaskCompleted(Task task) {
+        String deleteAll = "UPDATE tasks SET completed = 1 WHERE id = " + task.getId();
+        PersistenceManager.executeUpdate(deleteAll);
+    }
+
+    public static void setCookChange(Task task) {
+        String deleteAll = "UPDATE tasks SET id_cook = " + task.getCookAssigned().getId() +
+                " WHERE id = " + task.getId();
+        PersistenceManager.executeUpdate(deleteAll);
+    }
+
+    public static void setTurnChanged(Task task) {
+        String deleteAll = "UPDATE tasks SET id_turn = " + task.getTurnAssigned().getId() +
+                " WHERE id = " + task.getId();
+        PersistenceManager.executeUpdate(deleteAll);
+    }
+
+    public static void taskTimeChanged(Task task) {
+        String deleteAll = "UPDATE tasks SET timeEstimate = " + task.getTimeEstimate() +
+                " WHERE id = " + task.getId();
+        PersistenceManager.executeUpdate(deleteAll);
+    }
+
+    public static void taskQuantityChanged(Task task) {
+        String deleteAll = "UPDATE tasks SET quantity = " + task.getQuantity() +
+                " WHERE id = " + task.getId();
+        PersistenceManager.executeUpdate(deleteAll);
     }
 
     public void assignTask(Turn turn, User cook) {
@@ -110,7 +159,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "\tTask" +
+        return "\n\tTask" +
                 "id: " + id +
                 ", ktAssigned: " + ktAssigned +
                 ", turnAssigned: " + turnAssigned +

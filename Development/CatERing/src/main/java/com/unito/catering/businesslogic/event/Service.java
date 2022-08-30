@@ -39,7 +39,6 @@ public class Service implements EventItemInfo {
                 service.date = rs.getDate("service_date");
                 service.timeStart = rs.getTime("time_start");
                 service.timeEnd = rs.getTime("time_end");
-                Menu.loadAllMenus();
                 service.menuAssigned = Menu.getMenuById(rs.getInt("id_menu"));
             }
         });

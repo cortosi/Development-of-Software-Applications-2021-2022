@@ -144,6 +144,7 @@ public class SummarySheet {
     @Override
     public String toString() {
         return "-SUMMARY SHEET-" +
+                "\n| ID: " + id +
                 "\n| Creator: " + creator +
                 "\n| Tasks: " + tasks +
                 "\n| serviceAssigned: " + serviceAssigned +
