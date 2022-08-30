@@ -14,22 +14,34 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
+    // INSTANCES VARIABLES
     private SummarySheet currentSheet;
     private ArrayList<TaskEventReceiver> eventReceivers = new ArrayList<>();
 
+    // INSTANCES METHODS
     public SummarySheet createSheet(Service ser) throws UseCaseLogicException {
         User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
         if (!currentUser.isChef()
                 || ser.getMenuAssigned() == null)
             throw new UseCaseLogicException();
 
-        SummarySheet new_sheet = new SummarySheet(ser, currentUser);
-        new_sheet.initSheet();
+        SummarySheet newSheet = new SummarySheet(ser, currentUser);
+        newSheet.initSheet();
 
-        this.setCurrentSheet(new_sheet);
+        this.setCurrentSheet(newSheet);
         notifySheetCreated(this.currentSheet, ser.getMenuAssigned());
 
-        return new_sheet;
+        return newSheet;
+    }
+
+    public SummarySheet openSheet(SummarySheet sheet) throws UseCaseLogicException {
+        User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
+        if (!currentUser.isChef())
+            throw new UseCaseLogicException();
+
+        this.setCurrentSheet(sheet);
+
+        return currentSheet;
     }
 
     public void resetSheet(SummarySheet sheet) throws UseCaseLogicException, TaskException {
@@ -166,16 +178,6 @@ public class TaskManager {
 
     public void setCurrentSheet(SummarySheet sheet) {
         this.currentSheet = sheet;
-    }
-
-    public SummarySheet openSheet(SummarySheet sheet) throws UseCaseLogicException {
-        User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
-        if (!currentUser.isChef())
-            throw new UseCaseLogicException();
-
-        this.setCurrentSheet(sheet);
-
-        return currentSheet;
     }
 
     // EVENT SENDER METHODS
