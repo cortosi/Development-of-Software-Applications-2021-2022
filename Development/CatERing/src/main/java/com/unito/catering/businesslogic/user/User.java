@@ -13,14 +13,9 @@ import java.util.Set;
 public class User {
 
     private static Map<Integer, User> loadedUsers = FXCollections.observableHashMap();
-
-    public static enum Role {SERVIZIO, CUOCO, CHEF, ORGANIZZATORE}
-
     private int id;
     private String username;
-
     private Set<Role> roles;
-
     private boolean busy;
 
     public User() {
@@ -28,36 +23,6 @@ public class User {
         username = "";
         this.roles = new HashSet<>();
     }
-
-    public boolean isChef() {
-        return roles.contains(Role.CHEF);
-    }
-
-    public boolean isBusy() {
-        return this.busy;
-    }
-
-    public String getUserName() {
-        return username;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public String toString() {
-        String result = username;
-        if (roles.size() > 0) {
-            result += ": ";
-
-            for (Role r : roles) {
-                result += r.toString() + " ";
-            }
-        }
-        return result;
-    }
-
-    // STATIC METHODS FOR PERSISTENCE
 
     public static User loadUserById(int uid) {
         if (loadedUsers.containsKey(uid)) return loadedUsers.get(uid);
@@ -132,4 +97,40 @@ public class User {
         }
         return u;
     }
+
+    public boolean isCook() {
+        return roles.contains(Role.CUOCO);
+    }
+
+    public boolean isChef() {
+        return roles.contains(Role.CHEF);
+    }
+
+    public boolean isBusy() {
+        return this.busy;
+    }
+
+    public String getUserName() {
+        return username;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    // STATIC METHODS FOR PERSISTENCE
+
+    public String toString() {
+        String result = username;
+        if (roles.size() > 0) {
+            result += ": ";
+
+            for (Role r : roles) {
+                result += r.toString() + " ";
+            }
+        }
+        return result;
+    }
+
+    public static enum Role {SERVIZIO, CUOCO, CHEF, ORGANIZZATORE}
 }

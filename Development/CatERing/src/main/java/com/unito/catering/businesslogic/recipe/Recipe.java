@@ -30,20 +30,6 @@ public class Recipe extends KitchenTask {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String toString() {
-        return name;
-    }
-
-    // STATIC METHODS FOR PERSISTENCE
-
     public static ObservableList<Recipe> loadAllRecipes() {
         String query = "SELECT * FROM Recipes";
         PersistenceManager.executeQuery(query, new ResultHandler() {
@@ -87,5 +73,19 @@ public class Recipe extends KitchenTask {
             }
         });
         return rec;
+    }
+
+    // STATIC METHODS FOR PERSISTENCE
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String toString() {
+        return name;
     }
 }

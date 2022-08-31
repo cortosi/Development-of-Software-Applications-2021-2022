@@ -1,5 +1,7 @@
 package com.unito.catering.businesslogic.recipe;
 
+import com.unito.catering.businesslogic.user.User;
+
 import java.util.HashMap;
 import java.util.Map;
 

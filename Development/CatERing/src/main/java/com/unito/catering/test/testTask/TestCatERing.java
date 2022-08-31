@@ -4,6 +4,7 @@ import com.unito.catering.businesslogic.CatERing;
 import com.unito.catering.businesslogic.event.Service;
 import com.unito.catering.businesslogic.general.TaskException;
 import com.unito.catering.businesslogic.general.UseCaseLogicException;
+import com.unito.catering.businesslogic.menu.Menu;
 import com.unito.catering.businesslogic.task.SummarySheet;
 import com.unito.catering.businesslogic.turn.Turn;
 import com.unito.catering.businesslogic.user.User;
@@ -17,6 +18,7 @@ public class TestCatERing {
         System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
         // LOADING DUMMY DATAS
+        Menu.loadAllMenus();
         Service service = Service.loadServiceById(1);
 
         // TEST: Starting
