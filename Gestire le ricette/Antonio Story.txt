@@ -1,0 +1,29 @@
+Antonio:
+
+1.Crea la ricetta sottoforma di bozza
+
+2.Compone una lista di ingredienti e i relativi
+	dosaggi
+
+3.Consulta il ricettario
+
+4.Se vuole, crea varianti di preparazioni già presenti
+	nel ricettario
+
+5.Delinea in maniera precisa i passaggi
+	della ricetta
+
+6.Se vuole, testa la ricetta
+
+	torna al passo 2 se non soddisffatto
+
+7.Definisce le tempistiche per la ricetta
+
+8.Classifica la ricetta
+
+9.Segnalo le parti che possono essere preparate 
+	in anticipo
+
+*Annota varianti ricetta
+
+ 
