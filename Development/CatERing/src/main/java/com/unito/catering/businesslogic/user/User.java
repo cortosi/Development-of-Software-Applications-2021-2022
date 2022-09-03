@@ -1,7 +1,7 @@
 package com.unito.catering.businesslogic.user;
 
-import com.unito.catering.pertistence.PersistenceManager;
-import com.unito.catering.pertistence.ResultHandler;
+import com.unito.catering.persistence.PersistenceManager;
+import com.unito.catering.persistence.ResultHandler;
 import javafx.collections.FXCollections;
 
 import java.sql.ResultSet;

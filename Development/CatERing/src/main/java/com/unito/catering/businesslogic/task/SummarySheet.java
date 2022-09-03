@@ -6,12 +6,10 @@ import com.unito.catering.businesslogic.menu.Menu;
 import com.unito.catering.businesslogic.recipe.KitchenTask;
 import com.unito.catering.businesslogic.recipe.Recipe;
 import com.unito.catering.businesslogic.user.User;
-import com.unito.catering.pertistence.BatchUpdateHandler;
-import com.unito.catering.pertistence.PersistenceManager;
+import com.unito.catering.persistence.BatchUpdateHandler;
+import com.unito.catering.persistence.PersistenceManager;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class SummarySheet {
@@ -68,9 +66,8 @@ public class SummarySheet {
     public static void setAssignment(Task task) {
         String update = "UPDATE tasks SET " +
                 "`id_turn` = " + task.getTurnAssigned().getId() + ", " +
-                "`id_cook` = " + task.getCookAssigned().getId() + "" +
+                "`id_cook` = " + (task.getCookAssigned() == null ? "null" : task.getCookAssigned().getId()) + "" +
                 " WHERE `id` = " + task.getId();
-        System.out.println(update);
         PersistenceManager.executeUpdate(update);
     }
 
@@ -79,7 +76,6 @@ public class SummarySheet {
                 "`timeEstimate` = " + task.getTimeEstimate() + ", " +
                 "`quantity` = " + task.getQuantity() + "" +
                 " WHERE `id` = " + task.getId();
-        System.out.println(update);
         PersistenceManager.executeUpdate(update);
     }
 

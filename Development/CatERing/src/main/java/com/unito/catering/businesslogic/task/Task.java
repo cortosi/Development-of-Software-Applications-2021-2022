@@ -4,14 +4,12 @@ import com.unito.catering.businesslogic.menu.Menu;
 import com.unito.catering.businesslogic.recipe.KitchenTask;
 import com.unito.catering.businesslogic.turn.Turn;
 import com.unito.catering.businesslogic.user.User;
-import com.unito.catering.pertistence.BatchUpdateHandler;
-import com.unito.catering.pertistence.PersistenceManager;
+import com.unito.catering.persistence.BatchUpdateHandler;
+import com.unito.catering.persistence.PersistenceManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static java.sql.Types.NULL;
 
 public class Task {
     private int id;
@@ -76,7 +74,7 @@ public class Task {
     }
 
     public static void setCookChange(Task task) {
-        String deleteAll = "UPDATE tasks SET id_cook = " + task.getCookAssigned().getId() +
+        String deleteAll = "UPDATE tasks SET id_cook = " + (task.getCookAssigned() == null ? "null" : task.getCookAssigned().getId()) +
                 " WHERE id = " + task.getId();
         PersistenceManager.executeUpdate(deleteAll);
     }

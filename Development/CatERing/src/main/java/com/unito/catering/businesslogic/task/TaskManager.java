@@ -19,11 +19,13 @@ public class TaskManager {
     private ArrayList<TaskEventReceiver> eventReceivers = new ArrayList<>();
 
     // INSTANCES METHODS
-    public SummarySheet createSheet(Service ser) throws UseCaseLogicException {
+    public SummarySheet createSheet(Service ser) throws UseCaseLogicException, TaskException {
         User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
-        if (!currentUser.isChef()
-                || ser.getMenuAssigned() == null)
+        if (!currentUser.isChef())
             throw new UseCaseLogicException();
+
+        if (ser.getMenuAssigned() == null)
+            throw new TaskException();
 
         SummarySheet newSheet = new SummarySheet(ser, currentUser);
         newSheet.initSheet();
@@ -31,13 +33,16 @@ public class TaskManager {
         this.setCurrentSheet(newSheet);
         notifySheetCreated(this.currentSheet, ser.getMenuAssigned());
 
-        return newSheet;
+        return currentSheet;
     }
 
-    public SummarySheet openSheet(SummarySheet sheet) throws UseCaseLogicException {
+    public SummarySheet openSheet(SummarySheet sheet) throws UseCaseLogicException, TaskException {
         User currentUser = CatERing.getInstance().getUserManager().getCurrentUser();
-        if (!currentUser.isChef())
+        if (!(currentUser.isChef()))
             throw new UseCaseLogicException();
+
+        if (!(sheet.isCreator(currentUser)))
+            throw new TaskException();
 
         this.setCurrentSheet(sheet);
 
@@ -58,13 +63,15 @@ public class TaskManager {
         notifySheetReset(sheet);
     }
 
-    public void addTask(KitchenTask kt) throws TaskException {
+    public Task addTask(KitchenTask kt) throws TaskException {
         if (currentSheet == null)
             throw new TaskException();
 
         Task n_task = currentSheet.addTask(kt);
 
         notifyTaskAdded(currentSheet, n_task);
+
+        return n_task;
     }
 
     public void deleteTask(Task task) throws TaskException {
@@ -79,9 +86,11 @@ public class TaskManager {
         notifyTaskDeleted(task);
     }
 
-    public void sortTask(Task task, int position) throws TaskException {
-        if (currentSheet == null ||
-                position < 0 || position > currentSheet.tasksSize())
+    public void sortTask(Task task, int position) throws TaskException, UseCaseLogicException {
+        if (currentSheet == null)
+            throw new UseCaseLogicException();
+
+        if (position < 0 || position > currentSheet.tasksSize())
             throw new TaskException();
 
         currentSheet.removeTask(task);

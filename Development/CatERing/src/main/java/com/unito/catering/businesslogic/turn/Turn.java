@@ -1,7 +1,7 @@
 package com.unito.catering.businesslogic.turn;
 
-import com.unito.catering.pertistence.PersistenceManager;
-import com.unito.catering.pertistence.ResultHandler;
+import com.unito.catering.persistence.PersistenceManager;
+import com.unito.catering.persistence.ResultHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -38,7 +38,7 @@ public class Turn {
 
     @Override
     public String toString() {
-        return "id: " + id +
+        return "\n\t\tid: " + id +
                 ", date: " + date +
                 ", place: " + place + '\'' +
                 ", start: " + start +

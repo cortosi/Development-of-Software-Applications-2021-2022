@@ -1,4 +1,4 @@
-package com.unito.catering.pertistence;
+package com.unito.catering.persistence;
 
 import com.unito.catering.businesslogic.menu.Menu;
 import com.unito.catering.businesslogic.task.SummarySheet;

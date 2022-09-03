@@ -13,33 +13,45 @@ import java.util.List;
 
 public class TestCatERing2a {
     public static void main(String[] args) throws UseCaseLogicException, TaskException {
-        System.out.println("[TEST]: FAKE LOGIN");
-        CatERing.getInstance().getUserManager().fakeLogin("Lidia");
-        System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
+        try {
+            System.out.println("[TEST]: FAKE LOGIN");
+            CatERing.getInstance().getUserManager().fakeLogin("Lidia");
+            System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
-        // LOADING DUMMY DATAS
-        Menu.loadAllMenus();
-        Service service1 = Service.loadServiceById(1);
-        List<Turn> turns = CatERing.getInstance().getTurnManager().getTurns();
+            // LOADING DUMMY DATAS
+            Menu.loadAllMenus();
+            Service service1 = Service.loadServiceById(1);
+            List<Turn> turns = CatERing.getInstance().getTurnManager().getTurns();
 
-        // TEST: start
-        System.out.println("\n[TEST]: GENERATING SUMMARY SHEET");
-        SummarySheet sheet1 = CatERing.getInstance().getTaskManager().createSheet(service1);
+            // TEST: start
+            System.out.println("\n[TEST]: GENERATING SUMMARY SHEET");
+            SummarySheet sheet1 = CatERing.getInstance().getTaskManager().createSheet(service1);
 
-        System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK)");
-        CatERing.getInstance().getTaskManager().assignTask(sheet1.getTasks().get(0), turns.get(0), User.loadUserById(5));
+            System.out.println(sheet1);
 
-        System.out.println("\n[TEST]: TASK INFO DEFINITION");
-        CatERing.getInstance().getTaskManager().setTaskDetails(sheet1.getTasks().get(0), 90, 2);
-        System.out.println("Before removing: " + sheet1);
+            System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK)");
+            CatERing.getInstance().getTaskManager().assignTask(sheet1.getTasks().get(0), turns.get(0), User.loadUserById(5));
 
-        System.out.println("\n[TEST]: REMOVE TASK FROM SHEET");
-        CatERing.getInstance().getTaskManager().deleteTask(sheet1.getTasks().get(0));
-        System.out.println("After removing: " + sheet1);
+            System.out.println(sheet1);
 
-        System.out.println("\n[TEST]: RESET SHEET");
-        CatERing.getInstance().getTaskManager().resetSheet(sheet1);
-        System.out.println(sheet1);
-        // TEST: end
+            System.out.println("\n[TEST]: TASK INFO DEFINITION");
+            CatERing.getInstance().getTaskManager().setTaskDetails(sheet1.getTasks().get(0), 90, 2);
+
+            System.out.println("Before removing: " + sheet1);
+
+            System.out.println("\n[TEST]: REMOVE TASK FROM SHEET");
+            CatERing.getInstance().getTaskManager().deleteTask(sheet1.getTasks().get(0));
+
+            System.out.println("After removing: " + sheet1);
+
+            System.out.println("\n[TEST]: RESET SHEET");
+            CatERing.getInstance().getTaskManager().resetSheet(sheet1);
+
+            System.out.println(sheet1);
+            // TEST: end
+        } catch (UseCaseLogicException | TaskException e) {
+            System.out.println("Errore su estensione 2a");
+            e.printStackTrace();
+        }
     }
 }

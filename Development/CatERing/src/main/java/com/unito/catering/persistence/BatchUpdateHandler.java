@@ -1,4 +1,4 @@
-package com.unito.catering.pertistence;
+package com.unito.catering.persistence;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

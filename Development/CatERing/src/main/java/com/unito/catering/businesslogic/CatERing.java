@@ -6,8 +6,8 @@ import com.unito.catering.businesslogic.recipe.RecipeManager;
 import com.unito.catering.businesslogic.task.TaskManager;
 import com.unito.catering.businesslogic.turn.TurnManager;
 import com.unito.catering.businesslogic.user.UserManager;
-import com.unito.catering.pertistence.MenuPersistence;
-import com.unito.catering.pertistence.TaskPersistence;
+import com.unito.catering.persistence.MenuPersistence;
+import com.unito.catering.persistence.TaskPersistence;
 
 public class CatERing {
     private static CatERing singleInstance;
