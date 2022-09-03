@@ -493,13 +493,12 @@ public class Menu {
         ArrayList<MenuItem> allItems = new ArrayList<>(freeItems);
         ArrayList<Recipe> recipes = new ArrayList<>();
 
-
         for (Section sec : this.sections) {
             allItems.addAll(sec.getItems());
         }
 
-        for (MenuItem mi : allItems) {
-            recipes.add(mi.getItemRecipe());
+        for (MenuItem item : allItems) {
+            recipes.add(item.getItemRecipe());
         }
 
         return recipes;

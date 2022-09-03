@@ -5,6 +5,7 @@ import com.unito.catering.businesslogic.event.Service;
 import com.unito.catering.businesslogic.general.TaskException;
 import com.unito.catering.businesslogic.general.UseCaseLogicException;
 import com.unito.catering.businesslogic.menu.Menu;
+import com.unito.catering.businesslogic.recipe.KitchenTask;
 import com.unito.catering.businesslogic.recipe.Recipe;
 import com.unito.catering.businesslogic.task.SummarySheet;
 import com.unito.catering.businesslogic.turn.Turn;
@@ -33,6 +34,11 @@ public class TestCatERing {
             CatERing.getInstance().getTaskManager().sortTask(sheet.getTasks().get(0), 3);
 
             System.out.println(sheet);
+
+//            System.out.println("\n[TEST]: ADD NEW TASK");
+//            CatERing.getInstance().getTaskManager().addTask(new KitchenTask());
+//
+//            System.out.println(sheet);
 
             System.out.println("\n[TEST]: GET WORKSHIFTBOARD");
             List<Turn> turns = CatERing.getInstance().getTurnManager().getTurns();
