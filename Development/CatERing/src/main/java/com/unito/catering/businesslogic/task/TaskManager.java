@@ -99,10 +99,6 @@ public class TaskManager {
         notifyTasksSorted(currentSheet);
     }
 
-    public WorkshiftBoard checkWorkshiftBoard() {
-        return CatERing.getInstance().getTurnManager().getWb();
-    }
-
     public void assignTask(Task toAssign, Turn turn, User cook) throws UseCaseLogicException, TaskException {
         if (currentSheet == null || !(currentSheet.containsTask(toAssign)))
             throw new UseCaseLogicException();

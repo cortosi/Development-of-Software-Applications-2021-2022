@@ -9,10 +9,6 @@ public class TurnManager {
         this.wb = new WorkshiftBoard();
     }
 
-    public WorkshiftBoard getWb() {
-        return wb;
-    }
-
     public ObservableList<Turn> getTurns() {
         return wb.getTurns();
     }

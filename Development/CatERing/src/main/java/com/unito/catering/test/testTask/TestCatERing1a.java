@@ -1,4 +1,4 @@
-package com.unito.catering.test.testTask;
+package com.unito.catering.test.TestTask;
 
 import com.unito.catering.businesslogic.CatERing;
 import com.unito.catering.businesslogic.event.Service;
@@ -6,9 +6,6 @@ import com.unito.catering.businesslogic.general.TaskException;
 import com.unito.catering.businesslogic.general.UseCaseLogicException;
 import com.unito.catering.businesslogic.menu.Menu;
 import com.unito.catering.businesslogic.task.SummarySheet;
-import com.unito.catering.businesslogic.task.Task;
-
-import java.sql.DriverManager;
 
 public class TestCatERing1a {
     public static void main(String[] args) throws UseCaseLogicException {

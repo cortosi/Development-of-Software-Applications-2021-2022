@@ -117,10 +117,6 @@ public class SummarySheet {
         return this.tasks.size();
     }
 
-    public User getCreator() {
-        return creator;
-    }
-
     public boolean isCreator(User user) {
         return (user.getId() == creator.getId());
     }

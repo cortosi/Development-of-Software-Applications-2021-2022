@@ -25,16 +25,6 @@ public class Event implements EventItemInfo {
         id = 0;
     }
 
-    public ObservableList<Service> getServices() {
-        return FXCollections.unmodifiableObservableList(this.services);
-    }
-
-    public String toString() {
-        return name + ": " + dateStart + "-" + dateEnd + ", " + participants + " pp. (" + organizer.getUserName() + ")";
-    }
-
-    // STATIC METHODS FOR PERSISTENCE
-
     public static ObservableList<Event> loadAllEventInfo() {
         ObservableList<Event> all = FXCollections.observableArrayList();
         String query = "SELECT * FROM Events WHERE true";
@@ -57,5 +47,14 @@ public class Event implements EventItemInfo {
             e.services = Service.loadServiceInfoForEvent(e.id);
         }
         return all;
+    }
+
+    public ObservableList<Service> getServices() {
+        return FXCollections.unmodifiableObservableList(this.services);
+    }
+
+    // STATIC METHODS FOR PERSISTENCE
+    public String toString() {
+        return name + ": " + dateStart + "-" + dateEnd + ", " + participants + " pp. (" + organizer.getUserName() + ")";
     }
 }

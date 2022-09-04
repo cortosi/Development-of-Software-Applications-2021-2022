@@ -73,7 +73,7 @@ public class Task {
         PersistenceManager.executeUpdate(deleteAll);
     }
 
-    public static void setCookChange(Task task) {
+    public static void setCookChanged(Task task) {
         String deleteAll = "UPDATE tasks SET id_cook = " + (task.getCookAssigned() == null ? "null" : task.getCookAssigned().getId()) +
                 " WHERE id = " + task.getId();
         PersistenceManager.executeUpdate(deleteAll);
@@ -100,10 +100,6 @@ public class Task {
     public void assignTask(Turn turn, User cook) {
         this.turnAssigned = turn;
         this.cookAssigned = cook;
-    }
-
-    public boolean isCompleted() {
-        return completed;
     }
 
     public void setCompleted(boolean completed) {

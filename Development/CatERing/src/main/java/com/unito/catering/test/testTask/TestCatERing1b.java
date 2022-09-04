@@ -1,4 +1,4 @@
-package com.unito.catering.test.testTask;
+package com.unito.catering.test.TestTask;
 
 import com.unito.catering.businesslogic.CatERing;
 import com.unito.catering.businesslogic.event.Service;
@@ -47,7 +47,7 @@ public class TestCatERing1b {
             System.out.println("\n[TEST]: RESET SHEET");
             CatERing.getInstance().getTaskManager().resetSheet(sheet1);
 
-            System.out.println("Firt sheet reset: \n" + sheet1);
+            System.out.println("First sheet reset: \n" + sheet1);
             // TEST: end
         } catch (UseCaseLogicException | TaskException e) {
             System.out.println("Errore su estensione 1b");

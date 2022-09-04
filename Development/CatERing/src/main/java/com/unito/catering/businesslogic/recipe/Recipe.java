@@ -75,8 +75,6 @@ public class Recipe extends KitchenTask {
         return rec;
     }
 
-    // STATIC METHODS FOR PERSISTENCE
-
     public String getName() {
         return name;
     }
@@ -88,4 +86,6 @@ public class Recipe extends KitchenTask {
     public String toString() {
         return name;
     }
+
+    // STATIC METHODS FOR PERSISTENCE
 }

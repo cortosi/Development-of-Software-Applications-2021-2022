@@ -1,12 +1,10 @@
-package com.unito.catering.test.testTask;
+package com.unito.catering.test.TestTask;
 
 import com.unito.catering.businesslogic.CatERing;
 import com.unito.catering.businesslogic.event.Service;
 import com.unito.catering.businesslogic.general.TaskException;
 import com.unito.catering.businesslogic.general.UseCaseLogicException;
 import com.unito.catering.businesslogic.menu.Menu;
-import com.unito.catering.businesslogic.recipe.KitchenTask;
-import com.unito.catering.businesslogic.recipe.Recipe;
 import com.unito.catering.businesslogic.task.SummarySheet;
 import com.unito.catering.businesslogic.turn.Turn;
 import com.unito.catering.businesslogic.user.User;
@@ -45,17 +43,17 @@ public class TestCatERing {
 
             System.out.println(turns);
 
-            System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK), ID 1");
+            System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK), FIRST TASK");
             CatERing.getInstance().getTaskManager().assignTask(sheet.getTasks().get(0), turns.get(0), User.loadUserById(5));
 
             System.out.println(sheet);
 
-            System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK), ID 2");
+            System.out.println("\n[TEST]: TASK ASSIGNMENT (WITH COOK), SECOND TASK");
             CatERing.getInstance().getTaskManager().assignTask(sheet.getTasks().get(1), turns.get(0), User.loadUserById(5));
 
             System.out.println(sheet);
 
-            System.out.println("\n[TEST]: TASK ASSIGNMENT (NO COOK), ID 3");
+            System.out.println("\n[TEST]: TASK ASSIGNMENT (NO COOK), THIRD TASK");
             CatERing.getInstance().getTaskManager().assignTask(sheet.getTasks().get(2), turns.get(0));
 
             System.out.println(sheet);

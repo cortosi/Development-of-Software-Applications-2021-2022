@@ -1,13 +1,10 @@
-package com.unito.catering.test.testTask;
+package com.unito.catering.test.TestTask;
 
 import com.unito.catering.businesslogic.CatERing;
 import com.unito.catering.businesslogic.event.Service;
 import com.unito.catering.businesslogic.general.UseCaseLogicException;
 import com.unito.catering.businesslogic.menu.Menu;
 import com.unito.catering.businesslogic.task.SummarySheet;
-import com.unito.catering.businesslogic.turn.Turn;
-
-import java.util.List;
 
 public class TestCatERing5a {
     public static void main(String[] args) throws UseCaseLogicException {

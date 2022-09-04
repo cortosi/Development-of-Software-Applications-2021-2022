@@ -1,4 +1,4 @@
-package com.unito.catering.test.testTask;
+package com.unito.catering.test.TestTask;
 
 import com.unito.catering.businesslogic.CatERing;
 import com.unito.catering.businesslogic.event.Service;
