@@ -29,7 +29,6 @@ public class CatERing {
     private TurnManager turnMgr;
     private TaskPersistence taskPersistence;
 
-
     private CatERing() {
         menuMgr = new MenuManager();
         recipeMgr = new RecipeManager();
@@ -43,7 +42,6 @@ public class CatERing {
         menuMgr.addEventReceiver(menuPersistence);
         taskMgr.addEventReceiver(taskPersistence);
     }
-
 
     public MenuManager getMenuManager() {
         return menuMgr;
@@ -64,7 +62,6 @@ public class CatERing {
     public TaskManager getTaskManager() {
         return taskMgr;
     }
-
 
     public EventManager getEventManager() {
         return eventMgr;

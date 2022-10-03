@@ -14,7 +14,7 @@ public class TestCatERing1a {
             CatERing.getInstance().getUserManager().fakeLogin("Lidia");
             System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
-            // LOADING DUMMY DATAS
+            // LOADING DUMMY DATA
             Menu.loadAllMenus();
             Service service1 = Service.loadServiceById(1);
             Service service2 = Service.loadServiceById(2);
@@ -31,6 +31,7 @@ public class TestCatERing1a {
             System.out.println("\n[TEST]: OPEN SUMMARY SHEET");
             System.out.println("Open first sheet: \n" + CatERing.getInstance().getTaskManager().openSheet(sheet1));
             // TEST: end
+
         } catch (TaskException e) {
             System.out.println("Errore su estensione 1a");
             e.printStackTrace();

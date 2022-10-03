@@ -298,7 +298,6 @@ public class Menu {
                 ps.setInt(1, batchCount);
                 ps.setInt(2, m.freeItems.get(batchCount).getId());
             }
-
             @Override
             public void handleGeneratedIds(ResultSet rs, int count) throws SQLException {
                 // no generated ids to handle

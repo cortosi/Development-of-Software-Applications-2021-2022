@@ -18,12 +18,11 @@ public class TestCatERing1b {
             CatERing.getInstance().getUserManager().fakeLogin("Lidia");
             System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
-            // LOADING DUMMY DATAS
+            // LOADING DUMMY DATA
             Menu.loadAllMenus();
             Service service1 = Service.loadServiceById(1);
             Service service2 = Service.loadServiceById(2);
             List<Turn> turns = CatERing.getInstance().getTurnManager().getTurns();
-
 
             // TEST: start
             System.out.println("\n[TEST]: GENERATING SUMMARY SHEET");
@@ -49,6 +48,7 @@ public class TestCatERing1b {
 
             System.out.println("First sheet reset: \n" + sheet1);
             // TEST: end
+
         } catch (UseCaseLogicException | TaskException e) {
             System.out.println("Errore su estensione 1b");
             e.printStackTrace();

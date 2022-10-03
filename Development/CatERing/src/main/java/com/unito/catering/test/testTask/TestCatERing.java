@@ -18,7 +18,7 @@ public class TestCatERing {
             CatERing.getInstance().getUserManager().fakeLogin("Lidia");
             System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
-            // LOADING DUMMY DATAS
+            // LOADING DUMMY DATA
             Menu.loadAllMenus();
             Service service = Service.loadServiceById(1);
 
@@ -34,7 +34,7 @@ public class TestCatERing {
             System.out.println(sheet);
 
 //            System.out.println("\n[TEST]: ADD NEW TASK");
-//            CatERing.getInstance().getTaskManager().addTask(new KitchenTask());
+//            CatERing.getInstance().getTaskManager().addTask();
 //
 //            System.out.println(sheet);
 
@@ -63,6 +63,7 @@ public class TestCatERing {
 
             System.out.println(sheet);
             // TEST: End
+
         } catch (UseCaseLogicException | TaskException e) {
             System.out.println("Errore sullo scenario principale" + e);
         }

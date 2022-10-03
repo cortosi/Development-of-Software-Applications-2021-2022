@@ -13,7 +13,7 @@ public class TestCatERing5a {
             CatERing.getInstance().getUserManager().fakeLogin("Lidia");
             System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
-            // LOADING DUMMY DATAS
+            // LOADING DUMMY DATA
             Menu.loadAllMenus();
             Service service1 = Service.loadServiceById(1);
 
@@ -28,6 +28,7 @@ public class TestCatERing5a {
 
             System.out.println(sheet1);
             // TEST: end
+
         } catch (Exception e) {
             System.out.println("Errore su estensione 5a");
             e.printStackTrace();

@@ -18,7 +18,7 @@ public class TestCatERing2a {
             CatERing.getInstance().getUserManager().fakeLogin("Lidia");
             System.out.println(CatERing.getInstance().getUserManager().getCurrentUser());
 
-            // LOADING DUMMY DATAS
+            // LOADING DUMMY DATA
             Menu.loadAllMenus();
             Service service1 = Service.loadServiceById(1);
             List<Turn> turns = CatERing.getInstance().getTurnManager().getTurns();
@@ -49,6 +49,7 @@ public class TestCatERing2a {
 
             System.out.println(sheet1);
             // TEST: end
+
         } catch (UseCaseLogicException | TaskException e) {
             System.out.println("Errore su estensione 2a");
             e.printStackTrace();

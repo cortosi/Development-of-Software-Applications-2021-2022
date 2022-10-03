@@ -74,9 +74,9 @@ public class Task {
     }
 
     public static void setCookChanged(Task task) {
-        String deleteAll = "UPDATE tasks SET id_cook = " + (task.getCookAssigned() == null ? "null" : task.getCookAssigned().getId()) +
+        String update = "UPDATE tasks SET id_cook = " + (task.getCookAssigned() == null ? "null" : task.getCookAssigned().getId()) +
                 " WHERE id = " + task.getId();
-        PersistenceManager.executeUpdate(deleteAll);
+        PersistenceManager.executeUpdate(update);
     }
 
     public static void setTurnChanged(Task task) {
